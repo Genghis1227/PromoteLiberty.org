@@ -1,0 +1,27 @@
+backend:
+  name: github
+  repo: Genghis1227/PromoteLiberty.org
+  branch: main
+  base_url: https://promoteliberty.org
+  auth_endpoint: /api/auth
+
+# Editorial Workflow enables Drafts -> In Review -> Published stages
+publish_mode: editorial_workflow
+
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "posts"
+    label: "Articles & Op-Eds"
+    folder: "content/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Author", name: "author", widget: "string", default: "PromoteLiberty Editorial" }
+      - { label: "Description / Summary", name: "description", widget: "text" }
+      - { label: "Tags", name: "tags", widget: "list", default: ["liberty", "policy"] }
+      - { label: "Body Content", name: "body", widget: "markdown" }
