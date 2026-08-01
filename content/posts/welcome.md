@@ -16,9 +16,7 @@ tags:
 ---
 If you’ve been around since the early days of the personal web, you know that building a space online used to feel like setting up a digital frontier.
 
-PromoteLiberty.org actually started all the way back in the late 90s as a simple GeoCities site—complete with raw HTML, animated GIFs, and a lot of passion. Over the decades, as the web evolved, the 
-
-platform shifted through almost every era of content management:
+PromoteLiberty.org actually started all the way back in the late 90s as a simple GeoCities site—complete with raw HTML, animated GIFs, and a lot of passion. Over the decades, as the web evolved, the platform shifted through almost every era of content management:
 
 * Moving from GeoCities to early CMS frameworks like PostNuke...
 * Adapting into community forums on PHPBB2...
@@ -36,8 +34,6 @@ Each platform served its purpose for the time, but relying on third-party algori
 Our tagline has always been simple yet fundamental: "Finding Truth Through the Promotion of Liberty."
 
 In a world increasingly dominated by noise, outrage, and echo chambers, true understanding doesn't come from top-down mandates or rigid echo chambers. It comes from open discussion, respectful debate, and decentralized inquiry. When individuals are free to share ideas, test assumptions, and engage in civil discourse, we can cut through the noise, gain broader perspectives, and ultimately uncover truth for ourselves. Liberty isn't just a political ideal—it’s the essential environment required for intellectual growth and genuine discovery.
-
-
 
 ![](/images/uploads/bannerold3.jpg)
 
