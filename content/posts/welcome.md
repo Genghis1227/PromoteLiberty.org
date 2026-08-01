@@ -1,5 +1,5 @@
 ---
-title: Welcome
+title: "Relaunching PromoteLiberty.org: A New Chapter in an Ongoing Journey"
 date: 2026-08-01T09:52:00.000-05:00
 draft: false
 author: Tony
