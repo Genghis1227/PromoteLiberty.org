@@ -2,7 +2,8 @@
 title: "Relaunching PromoteLiberty.org: A New Chapter in an Ongoing Journey"
 date: 2026-08-01T09:52:00.000-05:00
 draft: false
-author: Tony
+authors:
+  - Tony
 description: In a world increasingly dominated by noise, outrage, and echo
   chambers, true understanding doesn't come from top-down mandates or rigid echo
   chambers. It comes from open discussion, respectful debate, and decentralized
