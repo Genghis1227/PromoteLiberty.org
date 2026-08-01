@@ -33,6 +33,8 @@ collections:
     extension: "json"
     format: "json"
     create: true
+    identifier_field: "name"
+    summary: "{{name}}"
     slug: "{{slug}}"
     fields:
       - { label: "Name", name: "name", widget: "string" }
