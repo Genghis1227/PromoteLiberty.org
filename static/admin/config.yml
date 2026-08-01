@@ -26,3 +26,16 @@ collections:
       - { label: "Tags", name: "tags", widget: "list", default: ["liberty", "policy"] }
       - { label: "Show Table of Contents", name: "showTableOfContents", widget: "boolean", default: true, required: false }
       - { label: "Body Content", name: "body", widget: "markdown" }
+
+  - name: "authors"
+    label: "Author Profiles"
+    folder: "data/authors"
+    extension: "json"
+    format: "json"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Headline / Title", name: "headline", widget: "string", required: false }
+      - { label: "Bio", name: "bio", widget: "text", required: false }
+      - { label: "Profile Picture", name: "image", widget: "image", required: false }
