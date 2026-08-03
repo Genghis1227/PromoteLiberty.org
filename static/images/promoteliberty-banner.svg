@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="350" viewBox="0 0 1400 350">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#152447"/>
+      <stop offset="100%" stop-color="#0a1424"/>
+    </linearGradient>
+    <linearGradient id="flameOuter" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c94a2c"/>
+      <stop offset="100%" stop-color="#7c2416"/>
+    </linearGradient>
+    <linearGradient id="flameCore" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7d98a"/>
+      <stop offset="100%" stop-color="#e8912f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f7d98a" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#f7d98a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- background -->
+  <rect x="0" y="0" width="1400" height="350" fill="url(#bg)"/>
+
+  <!-- glow from the flame, the light of truth -->
+  <circle cx="1132" cy="150" r="230" fill="url(#glow)"/>
+
+  <!-- rays fanning from the flame, thinning as they reach the noise on the left -->
+  <g stroke="#e8c268" stroke-width="1.3" fill="none">
+    <line x1="1132" y1="120" x2="30" y2="15" opacity="0.16"/>
+    <line x1="1132" y1="128" x2="110" y2="50" opacity="0.18"/>
+    <line x1="1132" y1="138" x2="210" y2="80" opacity="0.16"/>
+    <line x1="1132" y1="150" x2="730" y2="145" opacity="0.14"/>
+    <line x1="1132" y1="162" x2="210" y2="225" opacity="0.16"/>
+    <line x1="1132" y1="172" x2="110" y2="260" opacity="0.18"/>
+    <line x1="1132" y1="180" x2="30" y2="320" opacity="0.16"/>
+  </g>
+
+  <!-- scattered "noise" fading toward the center, echoing the post's "noise, outrage, echo chambers" -->
+  <g fill="#46536b" opacity="0.55">
+    <circle cx="55" cy="60" r="3"/><circle cx="90" cy="130" r="2"/><circle cx="40" cy="200" r="4"/>
+    <circle cx="120" cy="245" r="2"/><circle cx="70" cy="290" r="3"/><circle cx="150" cy="80" r="2"/>
+    <circle cx="180" cy="160" r="4"/><circle cx="30" cy="105" r="2"/><circle cx="200" cy="45" r="3"/>
+    <circle cx="230" cy="120" r="2"/><circle cx="110" cy="270" r="2"/><circle cx="255" cy="210" r="3"/>
+  </g>
+  <g fill="#b1502f" opacity="0.4">
+    <circle cx="160" cy="230" r="3"/><circle cx="210" cy="70" r="2"/><circle cx="60" cy="165" r="2"/>
+    <circle cx="270" cy="150" r="3"/><circle cx="290" cy="255" r="2"/><circle cx="130" cy="40" r="2"/>
+  </g>
+  <g fill="#c9a24a" opacity="0.3">
+    <circle cx="320" cy="95" r="2"/><circle cx="345" cy="200" r="2"/><circle cx="310" cy="270" r="2"/>
+    <circle cx="360" cy="60" r="2"/><circle cx="380" cy="150" r="2"/><circle cx="400" cy="230" r="2"/>
+  </g>
+  <!-- density thins as it approaches the wordmark, noise resolving into signal -->
+  <g fill="#c9a24a" opacity="0.15">
+    <circle cx="440" cy="110" r="1.6"/><circle cx="465" cy="190" r="1.6"/><circle cx="490" cy="260" r="1.6"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="60" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="62" fill="#f2ead6" font-weight="600">
+    PromoteLiberty<tspan fill="#c9a24a">.org</tspan>
+  </text>
+
+  <!-- tagline -->
+  <text x="63" y="205" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#c9a24a" letter-spacing="3.5">
+    FINDING TRUTH THROUGH THE PROMOTION OF LIBERTY
+  </text>
+
+  <!-- thin rule -->
+  <rect x="63" y="228" width="230" height="1.5" fill="#46536b" opacity="0.7"/>
+
+  <!-- torch: cup + rod -->
+  <path d="M1085,278 L1180,278 L1165,300 L1100,300 Z" fill="#8a6a2a"/>
+  <rect x="1122" y="300" width="20" height="42" rx="2" fill="#8a6a2a"/>
+  <rect x="1116" y="308" width="32" height="7" fill="#c9a24a"/>
+  <rect x="1116" y="330" width="32" height="7" fill="#c9a24a"/>
+
+  <!-- laurel branches, classical emblem of liberty, flanking the cup -->
+  <g stroke="#c9a24a" stroke-width="2" fill="#c9a24a" opacity="0.9">
+    <path d="M1085,296 Q1055,275 1042,246" fill="none"/>
+    <ellipse cx="1080" cy="290" rx="9" ry="4" transform="rotate(-25,1080,290)"/>
+    <ellipse cx="1068" cy="278" rx="9" ry="4" transform="rotate(-40,1068,278)"/>
+    <ellipse cx="1058" cy="266" rx="8" ry="4" transform="rotate(-55,1058,266)"/>
+    <ellipse cx="1050" cy="254" rx="8" ry="3.5" transform="rotate(-65,1050,254)"/>
+    <ellipse cx="1043" cy="246" rx="7" ry="3.5" transform="rotate(-75,1043,246)"/>
+  </g>
+  <g stroke="#c9a24a" stroke-width="2" fill="#c9a24a" opacity="0.9" transform="translate(2265,0) scale(-1,1)">
+    <path d="M1085,296 Q1055,275 1042,246" fill="none"/>
+    <ellipse cx="1080" cy="290" rx="9" ry="4" transform="rotate(-25,1080,290)"/>
+    <ellipse cx="1068" cy="278" rx="9" ry="4" transform="rotate(-40,1068,278)"/>
+    <ellipse cx="1058" cy="266" rx="8" ry="4" transform="rotate(-55,1058,266)"/>
+    <ellipse cx="1050" cy="254" rx="8" ry="3.5" transform="rotate(-65,1050,254)"/>
+    <ellipse cx="1043" cy="246" rx="7" ry="3.5" transform="rotate(-75,1043,246)"/>
+  </g>
+
+  <!-- flame: outer tongue, offset side flicker, and bright inner core -->
+  <g transform="translate(1030,36) scale(2.05,1.6)">
+    <path d="M45,5 C15,45 2,80 12,112 C20,138 38,150 50,160 C62,150 80,138 88,112 C98,80 85,45 55,5
+             C52,2 48,2 45,5 Z" fill="url(#flameOuter)"/>
+    <path d="M49,35 C31,60 24,82 32,102 C38,116 47,124 50,131 C53,124 62,116 68,102
+             C76,82 69,60 51,35 C50.5,34 49.5,34 49,35 Z" fill="url(#flameCore)"/>
+    <path d="M49,58 C41,71 38,83 43,94 C46,101 49,105 50,108 C51,105 54,101 57,94
+             C62,83 59,71 51,58 C50.5,57.3 49.5,57.3 49,58 Z" fill="#fbeec3"/>
+  </g>
+</svg>

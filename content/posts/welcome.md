@@ -3,7 +3,7 @@ title: "Relaunching PromoteLiberty.org: A New Chapter in an Ongoing Journey"
 date: 2026-08-01T09:52:00.000-05:00
 draft: false
 authors:
-  - Tony
+  - Liberty
 description: In a world increasingly dominated by noise, outrage, and echo
   chambers, true understanding doesn't come from top-down mandates or rigid echo
   chambers. It comes from open discussion, respectful debate, and decentralized
@@ -15,6 +15,8 @@ description: In a world increasingly dominated by noise, outrage, and echo
 tags:
   - Announcements
 ---
+## PromoteLiberty.org
+
 If you’ve been around since the early days of the personal web, you know that building a space online used to feel like setting up a digital frontier.
 
 PromoteLiberty.org actually started all the way back in the late 90s as a simple GeoCities site—complete with raw HTML, animated GIFs, and a lot of passion. Over the decades, as the web evolved, the platform shifted through almost every era of content management:
@@ -40,8 +42,12 @@ In a world increasingly dominated by noise, outrage, and echo chambers, true und
 
 ## A Clean Slate for a Modern Stack
 
-When planning this relaunch, my initial instinct was to excavate the archives, convert old SQL dumps, and import every legacy post from the previous decades. But looking at the new platform—built on a modern, open-source stack powered by Hugo and Cloudflare—it felt right to start with a clean, updated slate.
+When planning this relaunch, my initial instinct was to excavate the archives, convert old SQL dumps, and import every legacy post from the previous decades. But looking at a new platform it felt right to start with a clean, updated slate.
 
 Rather than dragging along decades of outdated formatting and dead links, we are starting fresh. That said, the foundation built over those years remains, and we’ll be cross-pollinating content between this site and our broader network of social media channels and external projects. Insights posted here will feed into our community feeds, and the best discussions from across our platforms will find a permanent, open home here on the blog.
 
 Thank you for being part of this journey across all its iterations. Welcome to the new PromoteLiberty.org—let’s dive into the conversation.
+
+## Introducing New Banner and Logo
+
+![](/images/uploads/promoteliberty-banner.svg)
