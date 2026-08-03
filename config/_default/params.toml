@@ -27,7 +27,7 @@ disableTextInHeader = false
 
 # defaultBackgroundImage = "IMAGE.jpg" # used as default for background images
 # defaultFeaturedImage = "IMAGE.jpg" # used as default for featured images in all articles
-# defaultSocialImage = "/android-chrome-512x512.png" # used as default for social media sharing (Open Graph and Twitter)
+defaultSocialImage = "images/social-square-1200-tagline.png"
 hotlinkFeatureImage = false
 # Thumbnail aspect ratio as a number (e.g., "1.5", "1.0", "1.777")
 # thumbnailAspectRatio = "1.5"
@@ -65,7 +65,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
 [homepage]
   layout = "profile"
   headline = "Finding Truth Through the Promotion of Liberty"
-  #homepageImage = "IMAGE.jpg" # used in: hero, and card
+  homepageImage = "images/social-square-1200-tagline.png"
   showRecent = true
   showRecentItems = 5
   showMoreLink = true
