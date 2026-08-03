@@ -65,7 +65,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
 [homepage]
   layout = "profile"
   headline = "Finding Truth Through the Promotion of Liberty"
-  homepageImage = "images/social-square-1200-tagline.png"
+  homepageImage = "images/promoteliberty-banner.svg"
   showRecent = true
   showRecentItems = 5
   showMoreLink = true
