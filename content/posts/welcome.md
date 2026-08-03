@@ -40,7 +40,7 @@ In a world increasingly dominated by noise, outrage, and echo chambers, true und
 
 ## A Clean Slate for a Modern Stack
 
-When planning this relaunch, my initial instinct was to excavate the archives, convert old SQL dumps, and import every legacy post from the previous decades. But looking at the new platform—built on a modern, open-source stack powered by Hugo and Cloudflare—it felt right to start with a clean, updated slate.
+When planning this relaunch, my initial instinct was to excavate the archives, convert old SQL dumps, and import every legacy post from the previous decades. But looking at a new platform it felt right to start with a clean, updated slate.
 
 Rather than dragging along decades of outdated formatting and dead links, we are starting fresh. That said, the foundation built over those years remains, and we’ll be cross-pollinating content between this site and our broader network of social media channels and external projects. Insights posted here will feed into our community feeds, and the best discussions from across our platforms will find a permanent, open home here on the blog.
 
