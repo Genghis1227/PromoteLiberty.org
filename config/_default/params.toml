@@ -77,7 +77,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
 
 [article]
   showComments = true
-  cusdisAppId = ""
+  cusdisAppId = "3f8e1151-394f-4b40-8c1c-6afc548f015e"
   showDate = true
   showViews = false
   showLikes = false
