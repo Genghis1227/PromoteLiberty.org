@@ -37,7 +37,3 @@ To the fullest extent permitted by law, PromoteLiberty.org shall not be liable f
 ## Changes to These Terms
 
 We may update these Terms of Service from time to time. Continued use of the Site after changes are posted constitutes acceptance of the revised terms.
-
-## Contact Us
-
-If you have questions about these Terms, you can reach us at [genghis1227@gmail.com](mailto:genghis1227@gmail.com).

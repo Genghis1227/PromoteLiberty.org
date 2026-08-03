@@ -36,7 +36,3 @@ This Site is not directed at children under 13, and we do not knowingly collect 
 ## Changes to This Policy
 
 We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated "Last updated" date.
-
-## Contact Us
-
-If you have questions about this Privacy Policy, you can reach us at [genghis1227@gmail.com](mailto:genghis1227@gmail.com).
