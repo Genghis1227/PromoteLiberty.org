@@ -19,7 +19,15 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
       - { label: "Draft", name: "draft", widget: "boolean", default: false }
-      - { label: "Authors", name: "authors", widget: "list", default: ["PromoteLiberty Editorial"] }
+      - label: "Authors"
+        name: "authors"
+        widget: "relation"
+        collection: "authors"
+        search_fields: ["name"]
+        value_field: "name"
+        display_fields: ["name"]
+        multiple: true
+        required: false
       - { label: "Description / Summary", name: "description", widget: "text" }
       - { label: "Tags", name: "tags", widget: "list", default: ["liberty", "policy"] }
       - { label: "Show Table of Contents", name: "showTableOfContents", widget: "boolean", default: true, required: false }
