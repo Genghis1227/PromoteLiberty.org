@@ -1,7 +1,10 @@
 {{ $fbUrl := .Params.facebook_post | default .Permalink }}
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0&appId=2558554957928235"></script>
+
 <div class="mt-8 w-full min-h-[350px] bg-white rounded-lg p-2 shadow-sm">
   <iframe
-    src="https://www.facebook.com/plugins/comments.php?href={{ $fbUrl | urlquery }}&width=100%25&numposts=5"
+    src="https://www.facebook.com/plugins/comments.php?app_id=2558554957928235&href={{ $fbUrl | urlquery }}&width=100%25&numposts=5"
     width="100%"
     height="450"
     style="border:none;overflow:hidden;width:100%;min-height:350px;"
