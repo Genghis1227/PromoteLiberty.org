@@ -76,8 +76,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   disableHeroImageFilter = false # only used when layout equals hero
 
 [article]
-  showComments = true
-  cusdisAppId = "3f8e1151-394f-4b40-8c1c-6afc548f015e"
+  showComments = false
   showDate = true
   showViews = false
   showLikes = false
