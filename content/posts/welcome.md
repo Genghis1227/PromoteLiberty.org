@@ -12,6 +12,7 @@ description: In a world increasingly dominated by noise, outrage, and echo
   perspectives, and ultimately uncover truth for ourselves. Liberty isn't just a
   political ideal—it’s the essential environment required for intellectual
   growth and genuine discovery.
+facebook_url: https://www.facebook.com/share/p/1DdcFPvqXC/
 tags:
   - Announcements
 ---
