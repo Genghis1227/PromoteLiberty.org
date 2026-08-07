@@ -1,6 +1,6 @@
 ---
 title: "Relaunching PromoteLiberty.org: A New Chapter in an Ongoing Journey"
-date: 2026-08-06T23:29:00.000-05:00
+date: 2026-08-01T00:00:00.000-05:00
 draft: false
 authors:
   - Liberty
@@ -12,6 +12,7 @@ description: In a world increasingly dominated by noise, outrage, and echo
   perspectives, and ultimately uncover truth for ourselves. Liberty isn't just a
   political ideal—it’s the essential environment required for intellectual
   growth and genuine discovery.
+reddit_url: https://www.reddit.com/r/PromoteLiberty/s/NU6yssJm74
 facebook_url: https://www.facebook.com/share/p/1DdcFPvqXC/
 tags:
   - Announcements
