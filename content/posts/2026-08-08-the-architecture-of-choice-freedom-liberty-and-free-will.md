@@ -10,10 +10,12 @@ description: While often used interchangeably, freedom and liberty represent two
   choices from tyranny. Connected by the engine of human free will, this piece
   explores why both must be actively defended to preserve individual autonomy
   and moral accountability.
+reddit_url: https://www.reddit.com/r/PromoteLiberty/s/BUclX5QzcV
 facebook_url: https://www.facebook.com/share/p/1BgsdFLMuS/
 tags:
   - liberty
   - policy
+  - philosophy
 showTableOfContents: true
 ---
 ![](/images/uploads/1000008667.png)
