@@ -11,7 +11,7 @@ description: While often used interchangeably, freedom and liberty represent two
   explores why both must be actively defended to preserve individual autonomy
   and moral accountability.
 reddit_url: https://www.reddit.com/r/PromoteLiberty/s/BUclX5QzcV
-facebook_url: https://www.facebook.com/share/p/1D2JurtPQU/
+facebook_url: https://www.facebook.com/100064718855003/posts/1494912016009413/?mibextid=rS40aB7S9Ucbxw6v
 tags:
   - liberty
   - policy
