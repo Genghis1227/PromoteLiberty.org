@@ -18,11 +18,10 @@ title = "PromoteLiberty.org"
 [params.author]
   name = "PromoteLiberty.org"
   headline = "Finding Truth Through the Promotion of Liberty"
-#   email = "youremail@example.com"
-#   image = "img/blowfish_logo.png"
-#   imageQuality = 96
-#   bio = "A little bit about you"
-#   links = [
+  links = [
+    { reddit = "https://www.reddit.com/r/PromoteLiberty/" },
+    { facebook = "https://www.facebook.com/100064718855003" }
+  ]
 #     { email = "mailto:hello@your_domain.com" },
 #     { link = "https://link-to-some-website.com/" },
 #     { amazon = "https://www.amazon.com/hz/wishlist/ls/wishlist-id" },
