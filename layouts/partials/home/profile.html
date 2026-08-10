@@ -1,7 +1,7 @@
 {{ $disableImageOptimization := .Site.Params.disableImageOptimization | default false }}
 
 <article class="flex flex-col items-center justify-center text-center w-full">
-  <!-- Hero Header Section -->
+  <!-- HERO HEADER WITH INTEGRATED MISSION STATEMENT -->
   <header class="relative px-2 py-4 flex flex-col items-center mb-8 w-full max-w-5xl">
     {{ if .Site.Params.homepage.homepageImage }}
       <div class="w-full overflow-hidden rounded-2xl shadow-xl border border-neutral-200 dark:border-neutral-800 mb-6 group transition-all duration-300">
@@ -17,22 +17,28 @@
     </h1>
 
     {{ with .Site.Params.Author.headline }}
-      <p class="text-lg sm:text-xl font-medium text-primary-600 dark:text-primary-400 max-w-3xl mb-3">
+      <p class="text-lg sm:text-xl font-medium text-primary-600 dark:text-primary-400 max-w-3xl mb-4">
         {{ . | markdownify }}
       </p>
     {{ end }}
 
-    <p class="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mb-6 leading-relaxed">
-      Questioning compulsory altruism and reshaping rugged individualism for a modern era—fostering voluntary collaboration, mutual respect, and open debate.
-    </p>
+    <!-- Integrated Mission Callout -->
+    <div class="p-6 sm:p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/70 dark:bg-neutral-800/40 max-w-3xl mb-6 shadow-sm text-left sm:text-center">
+      <p class="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-3">
+        Questioning compulsory altruism and reshaping rugged individualism for a modern era—fostering voluntary collaboration, mutual respect, and civil debate.
+      </p>
+      <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+        In a world increasingly dominated by noise and echo chambers, true understanding comes from open discussion and testing assumptions to uncover truth for ourselves.
+      </p>
+    </div>
 
     <!-- Action Buttons -->
-    <div class="flex flex-wrap justify-center items-center gap-3 mb-2">
+    <div class="flex flex-wrap justify-center items-center gap-3">
       <a href="#latest-articles" class="px-5 py-2.5 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold shadow-md transition-colors duration-200">
         Read Latest Articles ↓
       </a>
       <a href="#core-pillars" class="px-5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-400 text-neutral-800 dark:text-neutral-200 font-semibold bg-neutral-50 dark:bg-neutral-800/50 transition-colors duration-200">
-        Our Philosophy
+        Our Philosophy ↓
       </a>
       <a href="https://www.reddit.com/r/PromoteLiberty/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-400 text-neutral-800 dark:text-neutral-200 font-semibold bg-neutral-50 dark:bg-neutral-800/50 transition-colors duration-200 flex items-center gap-2">
         <svg class="w-5 h-5 fill-current text-[#FF4500]" viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.688-.562-1.25-1.25-1.25zm-5.466 3.99a.327.327 0 0 0-.231.094.32.32 0 0 0 0 .458c.67.67 1.747 1.01 2.947 1.01 1.199 0 2.278-.34 2.947-1.01a.32.32 0 0 0 0-.458.327.327 0 0 0-.462 0c-.53.53-1.423.812-2.485.812-1.061 0-1.956-.282-2.485-.812a.32.32 0 0 0-.231-.094z"/></svg>
@@ -45,7 +51,7 @@
     </div>
   </header>
 
-  <!-- HIGHLIGHTED RECENT ARTICLES SECTION -->
+  <!-- HIGHLIGHTED RECENT ARTICLES SECTION (PRIMARY FEATURE AT TOP) -->
   <section id="latest-articles" class="w-full max-w-6xl mb-16 text-left">
     <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 pb-2 border-b border-neutral-200 dark:border-neutral-800">
       <div>
@@ -68,7 +74,7 @@
   <section id="core-pillars" class="w-full max-w-6xl my-12 pt-10 border-t border-neutral-200 dark:border-neutral-800 text-left">
     <div class="text-center mb-10">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-neutral-100 tracking-tight">
-        Core Pillars & Philosophy
+        Core Philosophy & Pillars
       </h2>
       <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-2 max-w-2xl mx-auto">
         Foundational principles guiding our exploration of agency, society, and truth.
@@ -126,24 +132,6 @@
             Examining the philosophical foundations and civic principles that preserve human flourishing, free markets of thought, and a self-governing society.
           </p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SPACED MISSION CARD SECTION -->
-  <section class="w-full max-w-4xl mt-16 mb-12 text-left">
-    <div class="p-8 sm:p-10 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-gradient-to-br from-neutral-50/80 via-white to-primary-50/20 dark:from-neutral-800/50 dark:via-neutral-800/30 dark:to-primary-950/10 shadow-sm relative overflow-hidden">
-      <!-- Accent Line Top -->
-      <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 to-secondary-500"></div>
-
-      <div class="flex items-center gap-2 mb-4">
-        <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300 bg-primary-100/80 dark:bg-primary-900/50 rounded-full">
-          Our Purpose & Mission
-        </span>
-      </div>
-
-      <div class="prose dark:prose-invert max-w-none text-neutral-700 dark:text-neutral-300 leading-relaxed">
-        {{ .Content }}
       </div>
     </div>
   </section>
