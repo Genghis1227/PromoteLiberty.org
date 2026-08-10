@@ -45,7 +45,7 @@
     </div>
   </header>
 
-  <!-- HIGHLIGHTED RECENT ARTICLES SECTION (Prominently placed directly below Hero Header) -->
+  <!-- HIGHLIGHTED RECENT ARTICLES SECTION -->
   <section id="latest-articles" class="w-full max-w-6xl mb-12 text-left">
     <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 pb-2 border-b border-neutral-200 dark:border-neutral-800">
       <div>
@@ -130,8 +130,46 @@
     </div>
   </section>
 
-  <!-- Markdown Content Section -->
-  <section class="prose dark:prose-invert w-full max-w-4xl text-left my-6 px-2">
-    {{ .Content }}
+  <!-- STYLED MISSION & PURPOSE CARD SECTION -->
+  <section class="w-full max-w-5xl my-12 text-left">
+    <div class="p-8 sm:p-10 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/60 dark:bg-neutral-800/40 shadow-sm relative overflow-hidden">
+      <!-- Ambient Glow Accent -->
+      <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-primary-500/10 dark:bg-primary-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="flex items-center gap-2 mb-4">
+        <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary-700 dark:text-primary-300 bg-primary-100 dark:bg-primary-900/40 rounded-full">
+          Our Purpose & Mission
+        </span>
+      </div>
+
+      <div class="prose dark:prose-invert max-w-none text-neutral-700 dark:text-neutral-300 leading-relaxed">
+        {{ .Content }}
+      </div>
+
+      <!-- Mission Highlights Bar -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 pt-6 border-t border-neutral-200/80 dark:border-neutral-700/60">
+        <div class="flex items-start gap-3">
+          <span class="text-xl">🗣️</span>
+          <div>
+            <h4 class="text-sm font-bold text-neutral-900 dark:text-neutral-100">Open Discussion</h4>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400">Civil dialogue without dogmatic echo chambers.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-xl">🧠</span>
+          <div>
+            <h4 class="text-sm font-bold text-neutral-900 dark:text-neutral-100">Individual Agency</h4>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400">Respecting everyone's capacity to think & choose.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-xl">🤝</span>
+          <div>
+            <h4 class="text-sm font-bold text-neutral-900 dark:text-neutral-100">Voluntary Collaboration</h4>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400">Building community through shared inquiry.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </article>
