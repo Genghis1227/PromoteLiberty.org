@@ -12,6 +12,7 @@ description: While often used interchangeably, freedom and liberty represent two
   and moral accountability.
 reddit_url: https://www.reddit.com/r/PromoteLiberty/s/BUclX5QzcV
 facebook_url: https://www.facebook.com/100064718855003/posts/1494912016009413/?mibextid=rS40aB7S9Ucbxw6v
+featureimage: /images/uploads/1000008667.png
 tags:
   - liberty
   - policy

@@ -1,0 +1,86 @@
+{{ $recentArticles := 5 }}
+{{ $recentArticles = .Site.Params.homepage.showRecentItems }}
+
+{{ $pages := first $recentArticles (.Paginate (where .Site.RegularPages "Type" "in"
+  .Site.Params.mainSections)).Pages
+}}
+{{ $featured := index $pages 0 }}
+{{ $rest := after 1 $pages }}
+
+{{ with $featured }}
+  {{ $page := . }}
+  {{ $featuredURL := "" }}
+  {{ $obj := "" }}
+  {{ with $page.Params.featureimage }}
+    {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+      {{ if site.Params.hotlinkFeatureImage }}
+        {{ $featuredURL = . }}
+      {{ else }}
+        {{ $obj = resources.GetRemote . }}
+      {{ end }}
+    {{ else }}
+      {{ $obj = $page.Resources.Get . }}
+      {{ if not $obj }}{{ $obj = resources.Get . }}{{ end }}
+      {{ if not $obj }}{{ $featuredURL = . | relURL }}{{ end }}
+    {{ end }}
+  {{ end }}
+  {{ if not (or $obj $featuredURL) }}
+    {{ $default := site.Store.Get "defaultFeaturedImage" }}
+    {{ if $default.url }}
+      {{ $featuredURL = $default.url }}
+    {{ else if $default.obj }}
+      {{ $obj = $default.obj }}
+    {{ end }}
+  {{ end }}
+  {{ if not $featuredURL }}
+    {{ with $obj }}
+      {{ $featuredURL = .RelPermalink }}
+      {{ if not (or (site.Store.Get "disableImageOptimization") (eq .MediaType.SubType "svg")) }}
+        {{ $featuredURL = (.Resize "1200x").RelPermalink }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  <div
+    class="group relative mb-10 rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden bg-neutral-50/50 dark:bg-neutral-800/30 hover:shadow-xl hover:border-primary-500/50 transition-all duration-300 text-left">
+    <div class="hero-article-row">
+      {{ with $featuredURL }}
+        <div class="hero-article-media relative overflow-hidden" style="aspect-ratio: 16/9;">
+          <img
+            src="{{ . }}"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            class="not-prose absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+        </div>
+      {{ end }}
+      <div class="hero-article-body p-6 sm:p-8 flex flex-col justify-center">
+        <span
+          class="inline-block mb-3 self-start text-xs font-bold uppercase tracking-wide text-primary-600 dark:text-primary-400">
+          Latest Article
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold mb-3 leading-tight">
+          <a
+            href="{{ $page.RelPermalink }}"
+            class="not-prose before:absolute before:inset-0 text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
+            {{ $page.Title | emojify }}
+          </a>
+        </h2>
+        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed line-clamp-3 mb-4">
+          {{ with $page.Description }}{{ . }}{{ else }}{{ $page.Summary | plainify }}{{ end }}
+        </p>
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          {{ partial "article-meta/basic.html" $page }}
+        </div>
+      </div>
+    </div>
+  </div>
+{{ end }}
+
+{{ if $rest }}
+  <section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+    {{ range $rest }}
+      {{ partial "article-link/card.html" . }}
+    {{ end }}
+  </section>
+{{ end }}

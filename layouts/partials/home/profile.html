@@ -12,41 +12,38 @@
       </div>
     {{ end }}
 
-    <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-neutral-900 dark:text-neutral-100 mb-2">
-      {{ .Site.Title }}
-    </h1>
-
-    {{ with .Site.Params.Author.headline }}
-      <p class="text-lg sm:text-xl font-medium text-primary-600 dark:text-primary-400 max-w-3xl mb-4">
-        {{ . | markdownify }}
-      </p>
-    {{ end }}
-
-    <!-- Integrated Mission Callout -->
-    <div class="p-6 sm:p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/70 dark:bg-neutral-800/40 max-w-3xl mb-6 shadow-sm text-left sm:text-center">
-      <p class="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-3">
+    <!-- Mission Statement -->
+    <div class="max-w-2xl mb-6">
+      <p class="text-xl sm:text-2xl font-semibold text-neutral-800 dark:text-neutral-100 leading-snug mb-2">
         Questioning compulsory altruism and reshaping rugged individualism for a modern era—fostering voluntary collaboration, mutual respect, and civil debate.
       </p>
-      <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+      <p class="text-sm sm:text-base text-neutral-500 dark:text-neutral-400 leading-relaxed">
         In a world increasingly dominated by noise and echo chambers, true understanding comes from open discussion and testing assumptions to uncover truth for ourselves.
       </p>
     </div>
 
     <!-- Action Buttons -->
     <div class="flex flex-wrap justify-center items-center gap-3">
-      <a href="#latest-articles" class="px-5 py-2.5 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold shadow-md transition-colors duration-200">
+      <a href="#latest-articles" class="px-5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-400 text-neutral-800 dark:text-neutral-200 font-semibold bg-neutral-50 dark:bg-neutral-800/50 transition-colors duration-200">
         Read Latest Articles ↓
       </a>
       <a href="#core-pillars" class="px-5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-400 text-neutral-800 dark:text-neutral-200 font-semibold bg-neutral-50 dark:bg-neutral-800/50 transition-colors duration-200">
         Our Philosophy ↓
       </a>
-      <a href="https://www.reddit.com/r/PromoteLiberty/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-400 text-neutral-800 dark:text-neutral-200 font-semibold bg-neutral-50 dark:bg-neutral-800/50 transition-colors duration-200 flex items-center gap-2">
-        <svg class="w-5 h-5 fill-current text-[#FF4500]" viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.688-.562-1.25-1.25-1.25zm-5.466 3.99a.327.327 0 0 0-.231.094.32.32 0 0 0 0 .458c.67.67 1.747 1.01 2.947 1.01 1.199 0 2.278-.34 2.947-1.01a.32.32 0 0 0 0-.458.327.327 0 0 0-.462 0c-.53.53-1.423.812-2.485.812-1.061 0-1.956-.282-2.485-.812a.32.32 0 0 0-.231-.094z"/></svg>
-        Reddit
+    </div>
+
+    <!-- Follow Us -->
+    <div class="flex items-center gap-2 mt-4">
+      <span class="text-xs font-medium uppercase tracking-wide text-neutral-400 dark:text-neutral-500">
+        Follow us
+      </span>
+      <a href="https://www.reddit.com/r/PromoteLiberty/" target="_blank" rel="noopener noreferrer" aria-label="Reddit" title="Reddit"
+        class="flex items-center justify-center w-9 h-9 rounded-full border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 hover:border-[#FF4500] hover:bg-[#FF4500]/10 transition-colors duration-200">
+        <svg class="w-4 h-4 fill-current text-[#FF4500]" viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.688-.562-1.25-1.25-1.25zm-5.466 3.99a.327.327 0 0 0-.231.094.32.32 0 0 0 0 .458c.67.67 1.747 1.01 2.947 1.01 1.199 0 2.278-.34 2.947-1.01a.32.32 0 0 0 0-.458.327.327 0 0 0-.462 0c-.53.53-1.423.812-2.485.812-1.061 0-1.956-.282-2.485-.812a.32.32 0 0 0-.231-.094z"/></svg>
       </a>
-      <a href="https://www.facebook.com/PromoteLiberty.org" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-400 text-neutral-800 dark:text-neutral-200 font-semibold bg-neutral-50 dark:bg-neutral-800/50 transition-colors duration-200 flex items-center gap-2">
-        <svg class="w-5 h-5 fill-current text-[#1877F2]" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        Facebook
+      <a href="https://www.facebook.com/PromoteLiberty.org" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"
+        class="flex items-center justify-center w-9 h-9 rounded-full border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 hover:border-[#1877F2] hover:bg-[#1877F2]/10 transition-colors duration-200">
+        <svg class="w-4 h-4 fill-current text-[#1877F2]" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
       </a>
     </div>
   </header>
@@ -81,57 +78,49 @@
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="pillars-grid">
       <!-- Pillar 1 -->
-      <div class="p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/30 hover:border-primary-500/50 dark:hover:border-primary-500/50 hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
-        <div>
-          <div class="text-3xl mb-3">🗽</div>
-          <h3 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-2">
-            Individual Liberty & Free Will
-          </h3>
-          <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-            Free will is the engine of human agency. Liberty creates the civic shield that protects personal choice, moral accountability, and self-determination from tyranny.
-          </p>
-        </div>
+      <div class="p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/30 hover:border-primary-500/50 dark:hover:border-primary-500/50 hover:shadow-lg transition-all duration-300">
+        <div class="text-3xl mb-3">🗽</div>
+        <h3 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-2">
+          Individual Liberty & Free Will
+        </h3>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+          Free will is the engine of human agency. Liberty creates the civic shield that protects personal choice, moral accountability, and self-determination from tyranny.
+        </p>
       </div>
 
       <!-- Pillar 2 -->
-      <div class="p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/30 hover:border-primary-500/50 dark:hover:border-primary-500/50 hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
-        <div>
-          <div class="text-3xl mb-3">🤝</div>
-          <h3 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-2">
-            Modern Individualism & Cooperation
-          </h3>
-          <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-            Questioning compulsory altruism and expanding rugged individualism for today—recognizing that true individual agency thrives through voluntary collaboration and mutual respect.
-          </p>
-        </div>
+      <div class="p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/30 hover:border-primary-500/50 dark:hover:border-primary-500/50 hover:shadow-lg transition-all duration-300">
+        <div class="text-3xl mb-3">🤝</div>
+        <h3 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-2">
+          Modern Individualism & Cooperation
+        </h3>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+          Questioning compulsory altruism and expanding rugged individualism for today—recognizing that true individual agency thrives through voluntary collaboration and mutual respect.
+        </p>
       </div>
 
       <!-- Pillar 3 -->
-      <div class="p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/30 hover:border-primary-500/50 dark:hover:border-primary-500/50 hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
-        <div>
-          <div class="text-3xl mb-3">💬</div>
-          <h3 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-2">
-            Open Inquiry & Civil Debate
-          </h3>
-          <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-            Challenging dogmas and cutting through echo chambers. Testing assumptions through open, respectful discussion to uncover truth for ourselves.
-          </p>
-        </div>
+      <div class="p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/30 hover:border-primary-500/50 dark:hover:border-primary-500/50 hover:shadow-lg transition-all duration-300">
+        <div class="text-3xl mb-3">💬</div>
+        <h3 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-2">
+          Open Inquiry & Civil Debate
+        </h3>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+          Challenging dogmas and cutting through echo chambers. Testing assumptions through open, respectful discussion to uncover truth for ourselves.
+        </p>
       </div>
 
       <!-- Pillar 4 -->
-      <div class="p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/30 hover:border-primary-500/50 dark:hover:border-primary-500/50 hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
-        <div>
-          <div class="text-3xl mb-3">📜</div>
-          <h3 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-2">
-            Philosophy & Policy
-          </h3>
-          <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-            Examining the philosophical foundations and civic principles that preserve human flourishing, free markets of thought, and a self-governing society.
-          </p>
-        </div>
+      <div class="p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-800/30 hover:border-primary-500/50 dark:hover:border-primary-500/50 hover:shadow-lg transition-all duration-300">
+        <div class="text-3xl mb-3">📜</div>
+        <h3 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-2">
+          Philosophy & Policy
+        </h3>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+          Examining the philosophical foundations and civic principles that preserve human flourishing, free markets of thought, and a self-governing society.
+        </p>
       </div>
     </div>
   </section>
