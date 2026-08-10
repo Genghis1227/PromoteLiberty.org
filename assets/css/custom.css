@@ -1,0 +1,40 @@
+/*
+  This theme ships a precompiled Tailwind CSS bundle (themes/blowfish/assets/css/compiled/main.css),
+  built ahead of time from the theme's own templates. Utility classes that don't already appear
+  somewhere in the original theme source (e.g. md:w-1/2) aren't in that bundle and won't apply no
+  matter what markup uses them. Custom layout rules that need a class combination the theme never
+  shipped go here instead of relying on new Tailwind utilities.
+*/
+
+.hero-article-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-article-media,
+.hero-article-body {
+  width: 100%;
+}
+
+@media (min-width: 853px) {
+  .hero-article-row {
+    flex-direction: row;
+  }
+
+  .hero-article-media,
+  .hero-article-body {
+    width: 50%;
+  }
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 853px) {
+  .pillars-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

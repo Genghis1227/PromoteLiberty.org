@@ -14,6 +14,7 @@ description: In a world increasingly dominated by noise, outrage, and echo
   growth and genuine discovery.
 reddit_url: https://www.reddit.com/r/PromoteLiberty/s/NU6yssJm74
 facebook_url: https://www.facebook.com/share/p/1DdcFPvqXC/
+featureimage: /images/promoteliberty-banner.svg
 tags:
   - Announcements
 showTableOfContents: true
