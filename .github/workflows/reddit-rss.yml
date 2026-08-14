@@ -95,7 +95,7 @@ jobs:
           payload = {
               "teamId": team_id,
               "title": title,
-              "status": "PUBLISHED",
+              "status": "SCHEDULED",
               "postDate": datetime.now(timezone.utc).isoformat(),
               "socialAccountTypes": ["REDDIT"],
               "data": {
