@@ -1,0 +1,111 @@
+name: Post Hugo RSS with Description to Reddit via bundle.social
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Runs automatically every hour
+  workflow_dispatch: # Allows you to manually trigger it from the GitHub Actions tab
+
+jobs:
+  check-rss-and-post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Parse RSS Feed and Post Newest Content
+        env:
+          BUNDLE_SOCIAL_API_KEY: ${{ secrets.BUNDLE_SOCIAL_API_KEY }}
+          REDDIT_ACCOUNT_ID: ${{ secrets.REDDIT_ACCOUNT_ID }}
+          SUBREDDIT_NAME: "PromoteLiberty"
+          HUGO_RSS_URL: "https://promoteliberty.org/index.xml"
+        shell: python
+        run: |
+          import os
+          import json
+          import xml.etree.ElementTree as ET
+          import requests
+          import html
+
+          rss_url = os.environ['HUGO_RSS_URL']
+          print(f"Fetching RSS feed from: {rss_url}")
+          
+          try:
+              response = requests.get(rss_url, timeout=15)
+              response.raise_for_status()
+          except Exception as e:
+              print(f"Error fetching RSS feed: {e}")
+              exit(1)
+
+          try:
+              root = ET.fromstring(response.content)
+              latest_item = root.find('.//item')
+              
+              if latest_item is None:
+                  print("No blog posts found in the RSS feed.")
+                  exit(0)
+                  
+              title = latest_item.find('title').text.strip()
+              link = latest_item.find('link').text.strip()
+              
+              # Extract description, default to empty if missing
+              desc_node = latest_item.find('description')
+              description = desc_node.text.strip() if desc_node is not None and desc_node.text else ""
+              # Clean up any escaped HTML tags commonly found in RSS feeds
+              description = html.unescape(description)
+          except Exception as e:
+              print(f"Error parsing XML content: {e}")
+              exit(1)
+
+          print(f"Identified newest item: '{title}'")
+
+          # Handle state tracking to prevent duplicate submissions
+          state_file = ".github/last_posted_link.txt"
+          if os.path.exists(state_file):
+              with open(state_file, "r") as f:
+                  last_link = f.read().strip()
+              if last_link == link:
+                  print("This item has already been successfully posted to Reddit. Skipping.")
+                  exit(0)
+
+          # Combine the Description and URL Link into a single text post body
+          reddit_body = f"{description}\n\n🔗 Read the full post here: {link}"
+
+          api_key = os.environ['BUNDLE_SOCIAL_API_KEY']
+          account_id = os.environ['REDDIT_ACCOUNT_ID']
+          sub_name = os.environ['SUBREDDIT_NAME']
+          
+          api_url = "https://api.bundle.social/api/v1/posts"
+          headers = {
+              "x-api-key": api_key,
+              "Content-Type": "application/json"
+          }
+          payload = {
+              "platforms": ["reddit"],
+              "accounts": [account_id],
+              "text": title, # This acts as the Reddit Post Title
+              "redditOptions": {
+                  "subreddit": sub_name,
+                  "kind": "self", # 'self' allows text bodies instead of raw URLs
+                  "text": reddit_body # Injects description and link layout directly into the post
+              }
+          }
+
+          print(f"Sending formatted text payload to bundle.social for r/{sub_name}...")
+          api_response = requests.post(api_url, headers=headers, json=payload, timeout=15)
+          
+          if api_response.status_code in [200, 201]:
+              print("Text post successfully published via bundle.social!")
+              os.makedirs(os.path.dirname(state_file), exist_ok=True)
+              with open(state_file, "w") as f:
+                  f.write(link)
+          else:
+              print(f"API Error ({api_response.status_code}): {api_response.text}")
+              exit(1)
