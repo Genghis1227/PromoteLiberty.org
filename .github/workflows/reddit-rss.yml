@@ -80,7 +80,25 @@ jobs:
                   print("This item has already been successfully posted to Reddit. Skipping.")
                   exit(0)
 
-          # Extract featured image URL (from RSS media tags, description img tags, or article og:image tag)
+          # Fetch live article page HTML to extract og:description or og:image if needed
+          page_html = ""
+          if link:
+              try:
+                  page_res = requests.get(link, timeout=10)
+                  if page_res.status_code == 200:
+                      page_html = page_res.text
+              except Exception as e:
+                  print(f"Error fetching page HTML: {e}")
+
+          # If description is short/empty, extract og:description or meta description tag
+          if (not description_clean or len(description_clean) < 30) and page_html:
+              og_desc = re.search(r'<meta[^>]+property=["\']og:description["\'][^>]+content=["\']([^"\']+)["\']', page_html)
+              if not og_desc:
+                  og_desc = re.search(r'<meta[^>]+name=["\']description["\'][^>]+content=["\']([^"\']+)["\']', page_html)
+              if og_desc:
+                  description_clean = html.unescape(og_desc.group(1)).strip()
+
+          # Extract featured image URL
           image_url = None
           media_node = latest_item.find('.//{http://search.yahoo.com/mrss/}content') or latest_item.find('enclosure')
           if media_node is not None and media_node.get('url'):
@@ -91,17 +109,12 @@ jobs:
               if img_match:
                   image_url = img_match.group(1)
 
-          if not image_url and link:
-              try:
-                  page_res = requests.get(link, timeout=10)
-                  if page_res.status_code == 200:
-                      og_match = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']', page_res.text)
-                      if not og_match:
-                          og_match = re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image["\']', page_res.text)
-                      if og_match:
-                          image_url = og_match.group(1)
-              except Exception as e:
-                  print(f"Could not scrape og:image: {e}")
+          if not image_url and page_html:
+              og_img = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']', page_html)
+              if not og_img:
+                  og_img = re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image["\']', page_html)
+              if og_img:
+                  image_url = og_img.group(1)
 
           if image_url and not image_url.startswith(('http://', 'https://')):
               image_url = f"https://promoteliberty.org{image_url}"
@@ -135,12 +148,6 @@ jobs:
               except Exception as e:
                   print(f"Error uploading image to bundle.social: {e}")
 
-          # Combine clean plain-text post summary description and URL link into Reddit text body
-          if description_clean:
-              reddit_body = f"{description_clean}\n\n🔗 Read the full article on PromoteLiberty.org: {link}"
-          else:
-              reddit_body = f"🔗 Read the full article on PromoteLiberty.org: {link}"
-
           headers = {
               "x-api-key": api_key,
               "Content-Type": "application/json"
@@ -151,7 +158,9 @@ jobs:
           reddit_payload = {
               "sr": f"r/{sub_name}",
               "text": title[:300],
-              "description": reddit_body,
+              "description": description_clean,
+              "url": link,
+              "link": link,
               "kind": "self"
           }
           if upload_ids:
