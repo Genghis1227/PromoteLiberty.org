@@ -23,6 +23,7 @@ jobs:
       - name: Parse RSS Feed and Post Newest Content
         env:
           BUNDLE_SOCIAL_API_KEY: ${{ secrets.BUNDLE_SOCIAL_API_KEY }}
+          BUNDLE_SOCIAL_TEAM_ID: ${{ secrets.BUNDLE_SOCIAL_TEAM_ID }}
           REDDIT_ACCOUNT_ID: ${{ secrets.REDDIT_ACCOUNT_ID }}
           SUBREDDIT_NAME: "PromoteLiberty"
           HUGO_RSS_URL: "https://promoteliberty.org/index.xml"
@@ -33,6 +34,7 @@ jobs:
           import xml.etree.ElementTree as ET
           import requests
           import html
+          from datetime import datetime, timezone
 
           rss_url = os.environ['HUGO_RSS_URL']
           print(f"Fetching RSS feed from: {rss_url}")
@@ -79,26 +81,59 @@ jobs:
           reddit_body = f"{description}\n\n🔗 Read the full post here: {link}"
 
           api_key = os.environ['BUNDLE_SOCIAL_API_KEY']
-          account_id = os.environ['REDDIT_ACCOUNT_ID']
           sub_name = os.environ['SUBREDDIT_NAME']
           
-          api_url = "https://api.bundle.social/api/v1/post"
           headers = {
               "x-api-key": api_key,
               "Content-Type": "application/json"
           }
+
+          team_id = os.environ.get('BUNDLE_SOCIAL_TEAM_ID')
+          if not team_id:
+              print("Attempting auto-detection of teamId from bundle.social API...")
+              for endpoint in ["https://api.bundle.social/api/v1/teams", "https://api.bundle.social/api/v1/team"]:
+                  try:
+                      res = requests.get(endpoint, headers=headers, timeout=10)
+                      if res.status_code == 200:
+                          data = res.json()
+                          if isinstance(data, list) and len(data) > 0:
+                              team_id = data[0].get('id')
+                              break
+                          elif isinstance(data, dict):
+                              if 'id' in data:
+                                  team_id = data['id']
+                                  break
+                              elif 'teams' in data and len(data['teams']) > 0:
+                                  team_id = data['teams'][0].get('id')
+                                  break
+                  except Exception as e:
+                      pass
+
+          if not team_id:
+              print("Error: BUNDLE_SOCIAL_TEAM_ID secret is missing and teamId could not be auto-detected.")
+              print("Please add BUNDLE_SOCIAL_TEAM_ID under GitHub Settings -> Secrets and variables -> Actions.")
+              exit(1)
+
+          print(f"Using bundle.social teamId: {team_id}")
+
+          api_url = "https://api.bundle.social/api/v1/post"
           payload = {
-              "platforms": ["reddit"],
-              "accounts": [account_id],
-              "text": title, # This acts as the Reddit Post Title
-              "redditOptions": {
-                  "subreddit": sub_name,
-                  "kind": "self", # 'self' allows text bodies instead of raw URLs
-                  "text": reddit_body # Injects description and link layout directly into the post
+              "teamId": team_id,
+              "title": title,
+              "status": "PUBLISHED",
+              "postDate": datetime.now(timezone.utc).isoformat(),
+              "socialAccountTypes": ["REDDIT"],
+              "data": {
+                  "REDDIT": {
+                      "sr": f"r/{sub_name}",
+                      "text": title[:300],
+                      "description": reddit_body,
+                      "kind": "self"
+                  }
               }
           }
 
-          print(f"Sending formatted text payload to bundle.social for r/{sub_name}...")
+          print(f"Sending payload to bundle.social for r/{sub_name}...")
           api_response = requests.post(api_url, headers=headers, json=payload, timeout=15)
           
           if api_response.status_code in [200, 201]:
