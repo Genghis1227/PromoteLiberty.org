@@ -1,6 +1,6 @@
 {
-  "name": "promoteliberty-rss-bot",
-  "version": "0.0.1",
+  "name": "promotelibertyrssbot",
+  "version": "0.0.0",
   "description": "Native Reddit Devvit App to automatically post PromoteLiberty.org RSS feed to r/PromoteLiberty",
   "main": "src/main.ts",
   "type": "module",
@@ -8,9 +8,11 @@
     "build": "tsc --noEmit"
   },
   "dependencies": {
-    "@devvit/public-api": "^0.11.7"
+    "@devvit/public-api": "0.14.0"
   },
   "devDependencies": {
     "typescript": "^5.4.0"
-  }
+  },
+  "private": true,
+  "license": "BSD-3-Clause"
 }
