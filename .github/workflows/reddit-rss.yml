@@ -82,7 +82,7 @@ jobs:
           account_id = os.environ['REDDIT_ACCOUNT_ID']
           sub_name = os.environ['SUBREDDIT_NAME']
           
-          api_url = "https://api.bundle.social/api/v1/posts"
+          api_url = "https://api.bundle.social/api/v1/post"
           headers = {
               "x-api-key": api_key,
               "Content-Type": "application/json"
