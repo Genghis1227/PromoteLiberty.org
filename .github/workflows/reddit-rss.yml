@@ -80,22 +80,82 @@ jobs:
                   print("This item has already been successfully posted to Reddit. Skipping.")
                   exit(0)
 
+          # Extract featured image URL (from RSS media tags, description img tags, or article og:image tag)
+          image_url = None
+          media_node = latest_item.find('.//{http://search.yahoo.com/mrss/}content') or latest_item.find('enclosure')
+          if media_node is not None and media_node.get('url'):
+              image_url = media_node.get('url')
+
+          if not image_url and description_raw:
+              img_match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', description_raw)
+              if img_match:
+                  image_url = img_match.group(1)
+
+          if not image_url and link:
+              try:
+                  page_res = requests.get(link, timeout=10)
+                  if page_res.status_code == 200:
+                      og_match = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']', page_res.text)
+                      if not og_match:
+                          og_match = re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image["\']', page_res.text)
+                      if og_match:
+                          image_url = og_match.group(1)
+              except Exception as e:
+                  print(f"Could not scrape og:image: {e}")
+
+          if image_url and not image_url.startswith(('http://', 'https://')):
+              image_url = f"https://promoteliberty.org{image_url}"
+
+          api_key = os.environ['BUNDLE_SOCIAL_API_KEY']
+          team_id = os.environ['BUNDLE_SOCIAL_TEAM_ID']
+          sub_name = os.environ['SUBREDDIT_NAME']
+
+          # Upload image to bundle.social if found
+          upload_ids = []
+          if image_url:
+              print(f"Found featured image URL: {image_url}")
+              try:
+                  img_res = requests.get(image_url, timeout=15)
+                  if img_res.status_code == 200:
+                      upload_res = requests.post(
+                          "https://api.bundle.social/api/v1/upload",
+                          headers={"x-api-key": api_key},
+                          data={"teamId": team_id},
+                          files={"file": ("image.jpg", img_res.content, "image/jpeg")},
+                          timeout=20
+                      )
+                      if upload_res.status_code in [200, 201]:
+                          upload_data = upload_res.json()
+                          u_id = upload_data.get("uploadId") or upload_data.get("id")
+                          if u_id:
+                              upload_ids.append(u_id)
+                              print(f"Successfully uploaded image to bundle.social! Upload ID: {u_id}")
+                      else:
+                          print(f"Image upload warning ({upload_res.status_code}): {upload_res.text}")
+              except Exception as e:
+                  print(f"Error uploading image to bundle.social: {e}")
+
           # Combine clean plain-text post summary description and URL link into Reddit text body
           if description_clean:
               reddit_body = f"{description_clean}\n\n🔗 Read the full article on PromoteLiberty.org: {link}"
           else:
               reddit_body = f"🔗 Read the full article on PromoteLiberty.org: {link}"
 
-          api_key = os.environ['BUNDLE_SOCIAL_API_KEY']
-          team_id = os.environ['BUNDLE_SOCIAL_TEAM_ID']
-          sub_name = os.environ['SUBREDDIT_NAME']
-          
           headers = {
               "x-api-key": api_key,
               "Content-Type": "application/json"
           }
 
           print(f"Using bundle.social teamId: {team_id}")
+
+          reddit_payload = {
+              "sr": f"r/{sub_name}",
+              "text": title[:300],
+              "description": reddit_body,
+              "kind": "self"
+          }
+          if upload_ids:
+              reddit_payload["uploadIds"] = upload_ids
 
           api_url = "https://api.bundle.social/api/v1/post"
           payload = {
@@ -105,12 +165,7 @@ jobs:
               "postDate": datetime.now(timezone.utc).isoformat(),
               "socialAccountTypes": ["REDDIT"],
               "data": {
-                  "REDDIT": {
-                      "sr": f"r/{sub_name}",
-                      "text": title[:300],
-                      "description": reddit_body,
-                      "kind": "self"
-                  }
+                  "REDDIT": reddit_payload
               }
           }
 
