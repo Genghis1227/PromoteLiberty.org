@@ -175,6 +175,7 @@ jobs:
               reddit_payload["uploadIds"] = upload_ids
               reddit_payload["kind"] = "image"
 
+          account_id = os.environ.get('REDDIT_ACCOUNT_ID')
           api_url = "https://api.bundle.social/api/v1/post"
           payload = {
               "teamId": team_id,
@@ -186,6 +187,9 @@ jobs:
                   "REDDIT": reddit_payload
               }
           }
+
+          if account_id:
+              payload["accounts"] = [account_id]
 
           print(f"Sending payload to bundle.social for r/{sub_name}...")
           api_response = requests.post(api_url, headers=headers, json=payload, timeout=15)
