@@ -81,38 +81,13 @@ jobs:
           reddit_body = f"{description}\n\n🔗 Read the full post here: {link}"
 
           api_key = os.environ['BUNDLE_SOCIAL_API_KEY']
+          team_id = os.environ['BUNDLE_SOCIAL_TEAM_ID']
           sub_name = os.environ['SUBREDDIT_NAME']
           
           headers = {
               "x-api-key": api_key,
               "Content-Type": "application/json"
           }
-
-          team_id = os.environ.get('BUNDLE_SOCIAL_TEAM_ID')
-          if not team_id:
-              print("Attempting auto-detection of teamId from bundle.social API...")
-              for endpoint in ["https://api.bundle.social/api/v1/teams", "https://api.bundle.social/api/v1/team"]:
-                  try:
-                      res = requests.get(endpoint, headers=headers, timeout=10)
-                      if res.status_code == 200:
-                          data = res.json()
-                          if isinstance(data, list) and len(data) > 0:
-                              team_id = data[0].get('id')
-                              break
-                          elif isinstance(data, dict):
-                              if 'id' in data:
-                                  team_id = data['id']
-                                  break
-                              elif 'teams' in data and len(data['teams']) > 0:
-                                  team_id = data['teams'][0].get('id')
-                                  break
-                  except Exception as e:
-                      pass
-
-          if not team_id:
-              print("Error: BUNDLE_SOCIAL_TEAM_ID secret is missing and teamId could not be auto-detected.")
-              print("Please add BUNDLE_SOCIAL_TEAM_ID under GitHub Settings -> Secrets and variables -> Actions.")
-              exit(1)
 
           print(f"Using bundle.social teamId: {team_id}")
 
