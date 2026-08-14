@@ -80,7 +80,7 @@ jobs:
                   print("This item has already been successfully posted to Reddit. Skipping.")
                   exit(0)
 
-          # Fetch live article page HTML to extract og:description or og:image if needed
+          # Fetch live article page HTML to extract og:description if needed
           page_html = ""
           if link:
               try:
@@ -98,55 +98,10 @@ jobs:
               if og_desc:
                   description_clean = html.unescape(og_desc.group(1)).strip()
 
-          # Extract featured image URL
-          image_url = None
-          media_node = latest_item.find('.//{http://search.yahoo.com/mrss/}content') or latest_item.find('enclosure')
-          if media_node is not None and media_node.get('url'):
-              image_url = media_node.get('url')
-
-          if not image_url and description_raw:
-              img_match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', description_raw)
-              if img_match:
-                  image_url = img_match.group(1)
-
-          if not image_url and page_html:
-              og_img = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']', page_html)
-              if not og_img:
-                  og_img = re.search(r'<meta[^>]+content=["\']([^"\']+)["\'] property=["\']og:image["\']', page_html)
-              if og_img:
-                  image_url = og_img.group(1)
-
-          if image_url and not image_url.startswith(('http://', 'https://')):
-              image_url = f"https://promoteliberty.org{image_url}"
-
           api_key = os.environ['BUNDLE_SOCIAL_API_KEY']
           team_id = os.environ['BUNDLE_SOCIAL_TEAM_ID']
+          account_id = os.environ.get('REDDIT_ACCOUNT_ID')
           sub_name = os.environ['SUBREDDIT_NAME']
-
-          # Upload image to bundle.social if found
-          upload_ids = []
-          if image_url:
-              print(f"Found featured image URL: {image_url}")
-              try:
-                  img_res = requests.get(image_url, timeout=15)
-                  if img_res.status_code == 200:
-                      upload_res = requests.post(
-                          "https://api.bundle.social/api/v1/upload",
-                          headers={"x-api-key": api_key},
-                          data={"teamId": team_id},
-                          files={"file": ("image.jpg", img_res.content, "image/jpeg")},
-                          timeout=20
-                      )
-                      if upload_res.status_code in [200, 201]:
-                          upload_data = upload_res.json()
-                          u_id = upload_data.get("uploadId") or upload_data.get("id")
-                          if u_id:
-                              upload_ids.append(u_id)
-                              print(f"Successfully uploaded image to bundle.social! Upload ID: {u_id}")
-                      else:
-                          print(f"Image upload warning ({upload_res.status_code}): {upload_res.text}")
-              except Exception as e:
-                  print(f"Error uploading image to bundle.social: {e}")
 
           headers = {
               "x-api-key": api_key,
@@ -155,27 +110,20 @@ jobs:
 
           print(f"Using bundle.social teamId: {team_id}")
 
-          # Format description to include the blog summary and article link cleanly
-          if description_clean:
-              full_description = f"{description_clean}\n\n🔗 Read the full article on PromoteLiberty.org:\n{link}"
-          else:
-              full_description = f"🔗 Read the full article on PromoteLiberty.org:\n{link}"
-
           sr_val = sub_name if sub_name.startswith(("r/", "u/")) else f"r/{sub_name}"
+          
+          # Clean Reddit Link Post Payload
           reddit_payload = {
               "subreddit": sr_val,
               "sr": sr_val,
               "title": title[:300],
               "text": title[:300],
-              "description": full_description,
-              "kind": "self"
+              "description": description_clean,
+              "url": link,
+              "link": link,
+              "kind": "link"
           }
 
-          if upload_ids:
-              reddit_payload["uploadIds"] = upload_ids
-              reddit_payload["kind"] = "image"
-
-          account_id = os.environ.get('REDDIT_ACCOUNT_ID')
           api_url = "https://api.bundle.social/api/v1/post"
           payload = {
               "teamId": team_id,
@@ -191,11 +139,11 @@ jobs:
           if account_id:
               payload["accounts"] = [account_id]
 
-          print(f"Sending payload to bundle.social for r/{sub_name}...")
+          print(f"Sending link payload to bundle.social for r/{sub_name}...")
           api_response = requests.post(api_url, headers=headers, json=payload, timeout=15)
           
           if api_response.status_code in [200, 201]:
-              print("Text post successfully published via bundle.social!")
+              print("Link post successfully published via bundle.social!")
               os.makedirs(os.path.dirname(state_file), exist_ok=True)
               with open(state_file, "w") as f:
                   f.write(link)
