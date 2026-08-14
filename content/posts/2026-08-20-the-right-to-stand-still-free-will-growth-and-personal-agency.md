@@ -11,6 +11,7 @@ description: While a growth mindset drives continuous self-improvement, true
   requires honoring that choice—and why, despite everyone's right to lay anchor,
   I personally choose to keep building, learning, and chasing the horizon.
 featureimage: /images/uploads/growthmindset.jpg
+facebook_url: https://www.facebook.com/share/p/1Dosozv8fv/
 tags:
   - liberty
   - policy
