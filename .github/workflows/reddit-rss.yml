@@ -112,7 +112,7 @@ jobs:
           if not image_url and page_html:
               og_img = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']', page_html)
               if not og_img:
-                  og_img = re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image["\']', page_html)
+                  og_img = re.search(r'<meta[^>]+content=["\']([^"\']+)["\'] property=["\']og:image["\']', page_html)
               if og_img:
                   image_url = og_img.group(1)
 
@@ -155,14 +155,19 @@ jobs:
 
           print(f"Using bundle.social teamId: {team_id}")
 
+          # Format description to include the blog summary and article link cleanly
+          if description_clean:
+              full_description = f"{description_clean}\n\n🔗 Read the full article on PromoteLiberty.org:\n{link}"
+          else:
+              full_description = f"🔗 Read the full article on PromoteLiberty.org:\n{link}"
+
           reddit_payload = {
               "sr": f"r/{sub_name}",
               "text": title[:300],
-              "description": description_clean,
-              "url": link,
-              "link": link,
+              "description": full_description,
               "kind": "self"
           }
+
           if upload_ids:
               reddit_payload["uploadIds"] = upload_ids
 
