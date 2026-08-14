@@ -205,13 +205,63 @@ jobs:
           print(f"Sending {post_kind} payload to bundle.social for r/{sub_name}...")
           api_response = requests.post(api_url, headers=headers, json=payload, timeout=15)
 
-          if api_response.status_code in [200, 201]:
-              print(f"{post_kind.capitalize()} post successfully published via bundle.social!")
+          if api_response.status_code not in [200, 201]:
+              print(f"API Error ({api_response.status_code}): {api_response.text}")
+              exit(1)
+
+          post_id = api_response.json().get("id")
+          print(f"Post accepted by bundle.social (id={post_id}). Waiting for Reddit to confirm publication...")
+
+          # bundle.social submits the post to Reddit asynchronously after accepting our
+          # request, so a 200/201 here only means "queued," not "actually on Reddit."
+          # Reddit's own submit endpoint is flaky and occasionally returns a transient
+          # 502 with no post id; bundle.social surfaces this as a retryable error, so
+          # poll for the final status and retry through their API when that happens.
+          import time
+
+          final_status = None
+          max_attempts = 10
+          poll_delay_seconds = 10
+
+          if not post_id:
+              print("Warning: no post id returned, cannot poll status or retry on failure.")
+          else:
+              for attempt in range(1, max_attempts + 1):
+                  time.sleep(poll_delay_seconds)
+                  status_res = requests.get(f"{api_url}/{post_id}", headers=headers, timeout=15)
+                  if status_res.status_code != 200:
+                      print(f"[{attempt}/{max_attempts}] Status check failed ({status_res.status_code}): {status_res.text}")
+                      continue
+
+                  post_data = status_res.json()
+                  status = post_data.get("status")
+                  print(f"[{attempt}/{max_attempts}] Post status: {status}")
+
+                  if status == "POSTED":
+                      final_status = "POSTED"
+                      break
+
+                  if status == "ERROR":
+                      reddit_error = (post_data.get("errorsVerbose") or {}).get("REDDIT") or {}
+                      retryable = reddit_error.get("retryability") == "retryable" or reddit_error.get("isTransient")
+                      print(f"Reddit error: {reddit_error.get('errorMessage')} (retryable={retryable})")
+                      if retryable and attempt < max_attempts:
+                          print("Retrying via bundle.social's retry endpoint...")
+                          retry_res = requests.post(f"{api_url}/{post_id}/retry", headers=headers, timeout=15)
+                          print(f"Retry request status: {retry_res.status_code}")
+                          continue
+                      final_status = "ERROR"
+                      break
+                  # else: SCHEDULED / PROCESSING / RETRYING -- keep polling
+
+          if final_status == "POSTED":
+              print(f"{post_kind.capitalize()} post confirmed published on Reddit!")
               os.makedirs(os.path.dirname(state_file), exist_ok=True)
               with open(state_file, "w") as f:
                   f.write(link)
           else:
-              print(f"API Error ({api_response.status_code}): {api_response.text}")
+              print(f"Reddit publication did not confirm as POSTED (final_status={final_status}). "
+                    "Not marking as posted -- the next scheduled run will retry this article.")
               exit(1)
 
       - name: Commit updated dedup state
