@@ -161,17 +161,18 @@ jobs:
           else:
               full_description = f"🔗 Read the full article on PromoteLiberty.org:\n{link}"
 
-          post_kind = "image" if upload_ids else "self"
-
           reddit_payload = {
-              "sr": f"r/{sub_name}",
+              "subreddit": sub_name,
+              "sr": sub_name,
+              "title": title[:300],
               "text": title[:300],
               "description": full_description,
-              "kind": post_kind
+              "kind": "self"
           }
 
           if upload_ids:
               reddit_payload["uploadIds"] = upload_ids
+              reddit_payload["kind"] = "image"
 
           api_url = "https://api.bundle.social/api/v1/post"
           payload = {
