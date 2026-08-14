@@ -12,9 +12,9 @@ description: In a world increasingly dominated by noise, outrage, and echo
   perspectives, and ultimately uncover truth for ourselves. Liberty isn't just a
   political ideal—it’s the essential environment required for intellectual
   growth and genuine discovery.
+featureimage: /images/promoteliberty-banner.svg
 reddit_url: https://www.reddit.com/r/PromoteLiberty/s/NU6yssJm74
 facebook_url: https://www.facebook.com/share/p/1DdcFPvqXC/
-featureimage: /images/promoteliberty-banner.svg
 tags:
   - Announcements
 showTableOfContents: true
@@ -40,7 +40,7 @@ Each platform served its purpose for the time, but relying on third-party algori
 
 Our tagline has always been simple yet fundamental: "Finding Truth Through the Promotion of Liberty."
 
-In a world increasingly dominated by noise, outrage, and echo chambers, true understanding doesn't come from top-down mandates or rigid echo chambers. It comes from open discussion, respectful debate, and decentralized inquiry. When individuals are free to share ideas, test assumptions, and engage in civil discourse, we can cut through the noise, gain broader perspectives, and ultimately uncover truth for ourselves. Liberty isn't just a political ideal—it’s the essential environment required for intellectual growth and genuine discovery.
+​In a world increasingly dominated by noise, outrage, and echo chambers, true understanding doesn’t come from top-down mandates or institutional orthodoxies. It is built through open dialogue, respectful debate, and decentralized inquiry. When free minds are able to question assumptions, test ideas, and engage in civil discourse, we cut through the noise, expand our perspectives, and uncover truth for ourselves. Liberty is not merely a political ideal—it is the essential foundation required for intellectual growth, human reason, and genuine discovery.
 
 ![](/images/uploads/bannerold3.jpg)
 
