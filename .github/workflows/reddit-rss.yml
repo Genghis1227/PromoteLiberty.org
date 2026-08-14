@@ -161,9 +161,10 @@ jobs:
           else:
               full_description = f"🔗 Read the full article on PromoteLiberty.org:\n{link}"
 
+          sr_val = sub_name if sub_name.startswith(("r/", "u/")) else f"r/{sub_name}"
           reddit_payload = {
-              "subreddit": sub_name,
-              "sr": sub_name,
+              "subreddit": sr_val,
+              "sr": sr_val,
               "title": title[:300],
               "text": title[:300],
               "description": full_description,
