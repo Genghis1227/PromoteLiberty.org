@@ -30,6 +30,7 @@ jobs:
         shell: python
         run: |
           import os
+          import re
           import json
           import xml.etree.ElementTree as ET
           import requests
@@ -59,9 +60,11 @@ jobs:
               
               # Extract description, default to empty if missing
               desc_node = latest_item.find('description')
-              description = desc_node.text.strip() if desc_node is not None and desc_node.text else ""
-              # Clean up any escaped HTML tags commonly found in RSS feeds
-              description = html.unescape(description)
+              description_raw = desc_node.text.strip() if desc_node is not None and desc_node.text else ""
+              
+              # Unescape HTML entities and strip HTML tags for clean plain text description
+              description_clean = html.unescape(description_raw)
+              description_clean = re.sub(r'<[^>]+>', '', description_clean).strip()
           except Exception as e:
               print(f"Error parsing XML content: {e}")
               exit(1)
@@ -77,8 +80,11 @@ jobs:
                   print("This item has already been successfully posted to Reddit. Skipping.")
                   exit(0)
 
-          # Combine the Description and URL Link into a single text post body
-          reddit_body = f"{description}\n\n🔗 Read the full post here: {link}"
+          # Combine clean plain-text post summary description and URL link into Reddit text body
+          if description_clean:
+              reddit_body = f"{description_clean}\n\n🔗 Read the full article on PromoteLiberty.org: {link}"
+          else:
+              reddit_body = f"🔗 Read the full article on PromoteLiberty.org: {link}"
 
           api_key = os.environ['BUNDLE_SOCIAL_API_KEY']
           team_id = os.environ['BUNDLE_SOCIAL_TEAM_ID']
