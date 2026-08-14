@@ -5,6 +5,9 @@ on:
     - cron: '0 * * * *' # Runs automatically every hour
   workflow_dispatch: # Allows you to manually trigger it from the GitHub Actions tab
 
+permissions:
+  contents: write # needed to commit the dedup state file back to the repo
+
 jobs:
   check-rss-and-post:
     runs-on: ubuntu-latest
@@ -98,6 +101,30 @@ jobs:
               if og_desc:
                   description_clean = html.unescape(og_desc.group(1)).strip()
 
+          # Extract the article's featured image URL: RSS media tags, an <img> in the
+          # description, or the page's og:image meta tag, in that order.
+          image_url = None
+          media_node = latest_item.find('.//{http://search.yahoo.com/mrss/}content')
+          if media_node is None:
+              media_node = latest_item.find('enclosure')
+          if media_node is not None and media_node.get('url'):
+              image_url = media_node.get('url')
+
+          if not image_url and description_raw:
+              img_match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', description_raw)
+              if img_match:
+                  image_url = img_match.group(1)
+
+          if not image_url and page_html:
+              og_img = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']', page_html)
+              if not og_img:
+                  og_img = re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image["\']', page_html)
+              if og_img:
+                  image_url = og_img.group(1)
+
+          if image_url and not image_url.startswith(('http://', 'https://')):
+              image_url = f"https://promoteliberty.org{image_url}"
+
           api_key = os.environ['BUNDLE_SOCIAL_API_KEY']
           team_id = os.environ['BUNDLE_SOCIAL_TEAM_ID']
           account_id = os.environ.get('REDDIT_ACCOUNT_ID')
@@ -110,19 +137,54 @@ jobs:
 
           print(f"Using bundle.social teamId: {team_id}")
 
+          # Upload the featured image to bundle.social so it can be attached as native
+          # Reddit media (POST /api/v1/upload returns an `id` we reference as uploadIds).
+          upload_ids = []
+          if image_url:
+              print(f"Found featured image URL: {image_url}")
+              try:
+                  img_res = requests.get(image_url, timeout=15)
+                  if img_res.status_code == 200:
+                      upload_res = requests.post(
+                          "https://api.bundle.social/api/v1/upload",
+                          headers={"x-api-key": api_key},
+                          data={"teamId": team_id},
+                          files={"file": ("image.jpg", img_res.content, "image/jpeg")},
+                          timeout=20
+                      )
+                      if upload_res.status_code in [200, 201]:
+                          upload_data = upload_res.json()
+                          u_id = upload_data.get("id") or upload_data.get("uploadId")
+                          if u_id:
+                              upload_ids.append(u_id)
+                              print(f"Successfully uploaded image to bundle.social! Upload ID: {u_id}")
+                      else:
+                          print(f"Image upload warning ({upload_res.status_code}): {upload_res.text}")
+              except Exception as e:
+                  print(f"Error uploading image to bundle.social: {e}")
+
           sr_val = sub_name if sub_name.startswith(("r/", "u/")) else f"r/{sub_name}"
-          
-          # Clean Reddit Link Post Payload
+
+          # bundle.social's Reddit schema only recognizes: sr, text, description,
+          # uploadIds, link, nsfw, flairId. Reddit itself does not allow a single post
+          # to have both an uploaded image and a link field -- it's one or the other.
+          # Prefer an image post (more native/engaging in-feed) when we have an image,
+          # folding the article link into the description since it can't be a separate
+          # field; fall back to a plain link post (Reddit auto-generates its own preview
+          # thumbnail from the page) when no image was found.
           reddit_payload = {
-              "subreddit": sr_val,
               "sr": sr_val,
-              "title": title[:300],
               "text": title[:300],
-              "description": description_clean,
-              "url": link,
-              "link": link,
-              "kind": "link"
           }
+
+          if upload_ids:
+              reddit_payload["uploadIds"] = upload_ids
+              body = description_clean or title
+              reddit_payload["description"] = f"{body}\n\n🔗 Read the full article: {link}"
+          else:
+              reddit_payload["link"] = link
+              if description_clean:
+                  reddit_payload["description"] = description_clean
 
           api_url = "https://api.bundle.social/api/v1/post"
           payload = {
@@ -139,14 +201,27 @@ jobs:
           if account_id:
               payload["accounts"] = [account_id]
 
-          print(f"Sending link payload to bundle.social for r/{sub_name}...")
+          post_kind = "image" if upload_ids else "link"
+          print(f"Sending {post_kind} payload to bundle.social for r/{sub_name}...")
           api_response = requests.post(api_url, headers=headers, json=payload, timeout=15)
-          
+
           if api_response.status_code in [200, 201]:
-              print("Link post successfully published via bundle.social!")
+              print(f"{post_kind.capitalize()} post successfully published via bundle.social!")
               os.makedirs(os.path.dirname(state_file), exist_ok=True)
               with open(state_file, "w") as f:
                   f.write(link)
           else:
               print(f"API Error ({api_response.status_code}): {api_response.text}")
               exit(1)
+
+      - name: Commit updated dedup state
+        run: |
+          if [ -n "$(git status --porcelain .github/last_posted_link.txt)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add .github/last_posted_link.txt
+            git commit -m "chore: record last post submitted to Reddit [skip ci]"
+            git push
+          else
+            echo "No change to dedup state file, nothing to commit."
+          fi
