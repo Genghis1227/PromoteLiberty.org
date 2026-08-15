@@ -5,6 +5,6 @@ description: "Finding Truth Through the Promotion of Liberty — Questioning Alt
 
 ### Finding Truth Through Open Debate
 
-In a world increasingly dominated by noise, outrage, and echo chambers, true understanding doesn't come from top-down mandates or emotional conformity. It comes from open discussion, respectful debate, and decentralized inquiry.
+In a world increasingly dominated by noise, outrage, and echo chambers, true understanding doesn't come from top-down mandates or institutional orthodoxies. It is built through open dialogue, respectful debate, and decentralized inquiry.
 
-When individuals are free to test assumptions, question dogmas, and engage in civil discourse, we cut through the noise to uncover truth for ourselves. Liberty is not just a political ideal—it is the essential environment required for intellectual growth, personal agency, and genuine discovery.
+When free minds are able to question assumptions, test ideas, and engage in civil discourse, we cut through the noise, expand our perspectives, and uncover truth for ourselves. Liberty is not merely a political ideal—it is the essential foundation required for intellectual growth, human reason, and genuine discovery.
